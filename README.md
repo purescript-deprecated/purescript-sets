@@ -37,3 +37,5 @@
     union :: forall a. (P.Ord a) => Set a -> Set a -> Set a
 
     unions :: forall a. (P.Ord a) => [Set a] -> Set a
+
+    difference :: forall a. (P.Ord a) => Set a -> Set a -> Set a
