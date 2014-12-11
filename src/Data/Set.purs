@@ -16,7 +16,8 @@ module Data.Set
     toList,
     fromList,
     union,
-    unions
+    unions,
+    difference
   ) where
   
 import qualified Prelude as P
@@ -69,3 +70,6 @@ union (Set m1) (Set m2) = Set (m1 `M.union` m2)
 
 unions :: forall a. (P.Ord a) => [Set a] -> Set a
 unions = foldl union empty
+
+difference :: forall a. (P.Ord a) => Set a -> Set a -> Set a
+difference s1 s2 = foldl (P.flip delete) s1 (toList s2)
