@@ -20,6 +20,8 @@
 
     delete :: forall a. (P.Ord a) => a -> Set a -> Set a
 
+    difference :: forall a. (P.Ord a) => Set a -> Set a -> Set a
+
     empty :: forall a. Set a
 
     fromList :: forall a. (P.Ord a) => [a] -> Set a
@@ -37,5 +39,3 @@
     union :: forall a. (P.Ord a) => Set a -> Set a -> Set a
 
     unions :: forall a. (P.Ord a) => [Set a] -> Set a
-
-    difference :: forall a. (P.Ord a) => Set a -> Set a -> Set a
