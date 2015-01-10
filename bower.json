@@ -23,7 +23,7 @@
     "purescript-maps": "~0.1.1",
     "purescript-maybe": "~0.2.1",
     "purescript-tuples": "~0.2.1",
-    "purescript-foldable-traversable": "~0.1.4",
+    "purescript-foldable-traversable": "~0.2.1",
     "purescript-arrays": "~0.3.0"
   }
 }
