@@ -2,40 +2,106 @@
 
 ## Module Data.Set
 
-### Types
+#### `Set`
 
-    data Set a
-
-
-### Type Class Instances
-
-    instance eqSet :: (P.Eq a) => P.Eq (Set a)
-
-    instance showSet :: (P.Show a) => P.Show (Set a)
+``` purescript
+data Set a
+```
 
 
-### Values
+#### `eqSet`
 
-    checkValid :: forall a. Set a -> Boolean
+``` purescript
+instance eqSet :: (P.Eq a) => P.Eq (Set a)
+```
 
-    delete :: forall a. (P.Ord a) => a -> Set a -> Set a
 
-    difference :: forall a. (P.Ord a) => Set a -> Set a -> Set a
+#### `showSet`
 
-    empty :: forall a. Set a
+``` purescript
+instance showSet :: (P.Show a) => P.Show (Set a)
+```
 
-    fromList :: forall a. (P.Ord a) => [a] -> Set a
 
-    insert :: forall a. (P.Ord a) => a -> Set a -> Set a
+#### `empty`
 
-    isEmpty :: forall a. Set a -> Boolean
+``` purescript
+empty :: forall a. Set a
+```
 
-    member :: forall a. (P.Ord a) => a -> Set a -> Boolean
 
-    singleton :: forall a. a -> Set a
+#### `isEmpty`
 
-    toList :: forall a. Set a -> [a]
+``` purescript
+isEmpty :: forall a. Set a -> Boolean
+```
 
-    union :: forall a. (P.Ord a) => Set a -> Set a -> Set a
 
-    unions :: forall a. (P.Ord a) => [Set a] -> Set a
+#### `singleton`
+
+``` purescript
+singleton :: forall a. a -> Set a
+```
+
+
+#### `checkValid`
+
+``` purescript
+checkValid :: forall a. Set a -> Boolean
+```
+
+
+#### `member`
+
+``` purescript
+member :: forall a. (P.Ord a) => a -> Set a -> Boolean
+```
+
+
+#### `insert`
+
+``` purescript
+insert :: forall a. (P.Ord a) => a -> Set a -> Set a
+```
+
+
+#### `delete`
+
+``` purescript
+delete :: forall a. (P.Ord a) => a -> Set a -> Set a
+```
+
+
+#### `toList`
+
+``` purescript
+toList :: forall a. Set a -> [a]
+```
+
+
+#### `fromList`
+
+``` purescript
+fromList :: forall a. (P.Ord a) => [a] -> Set a
+```
+
+
+#### `union`
+
+``` purescript
+union :: forall a. (P.Ord a) => Set a -> Set a -> Set a
+```
+
+
+#### `unions`
+
+``` purescript
+unions :: forall a. (P.Ord a) => [Set a] -> Set a
+```
+
+
+#### `difference`
+
+``` purescript
+difference :: forall a. (P.Ord a) => Set a -> Set a -> Set a
+```
