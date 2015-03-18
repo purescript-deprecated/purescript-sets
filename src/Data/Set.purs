@@ -23,8 +23,6 @@ module Data.Set
     intersection
   ) where
 
-import qualified Prelude as P
-
 import qualified Data.Map as M
 
 import Data.Array (map, nub, length)
@@ -32,14 +30,14 @@ import Data.Maybe
 import Data.Tuple
 import Data.Foldable (foldl)
 
-data Set a = Set (M.Map a P.Unit)
+data Set a = Set (M.Map a Unit)
 
-instance eqSet :: (P.Eq a) => P.Eq (Set a) where
-  (==) (Set m1) (Set m2) = m1 P.== m2
-  (/=) (Set m1) (Set m2) = m1 P./= m2
+instance eqSet :: (Eq a) => Eq (Set a) where
+  (==) (Set m1) (Set m2) = m1 == m2
+  (/=) (Set m1) (Set m2) = m1 /= m2
 
-instance showSet :: (P.Show a) => P.Show (Set a) where
-  show s = "fromList " P.++ P.show (toList s)
+instance showSet :: (Show a) => Show (Set a) where
+  show s = "fromList " ++ show (toList s)
 
 empty :: forall a. Set a
 empty = Set M.empty
@@ -48,42 +46,47 @@ isEmpty :: forall a. Set a -> Boolean
 isEmpty (Set m) = M.isEmpty m
 
 singleton :: forall a. a -> Set a
-singleton a = Set (M.singleton a P.unit)
+singleton a = Set (M.singleton a unit)
 
 checkValid :: forall a. Set a -> Boolean
 checkValid (Set m) = M.checkValid m
 
-member :: forall a. (P.Ord a) => a -> Set a -> Boolean
+member :: forall a. (Ord a) => a -> Set a -> Boolean
 member a (Set m) = a `M.member` m
 
-insert :: forall a. (P.Ord a) => a -> Set a -> Set a
-insert a (Set m) = Set (M.insert a P.unit m)
+insert :: forall a. (Ord a) => a -> Set a -> Set a
+insert a (Set m) = Set (M.insert a unit m)
 
-delete :: forall a. (P.Ord a) => a -> Set a -> Set a
+delete :: forall a. (Ord a) => a -> Set a -> Set a
 delete a (Set m) = Set (a `M.delete` m)
 
 toList :: forall a. Set a -> [a]
 toList (Set m) = map fst (M.toList m)
 
-fromList :: forall a. (P.Ord a) => [a] -> Set a
+fromList :: forall a. (Ord a) => [a] -> Set a
 fromList = foldl (\m a -> insert a m) empty
 
-union :: forall a. (P.Ord a) => Set a -> Set a -> Set a
+union :: forall a. (Ord a) => Set a -> Set a -> Set a
 union (Set m1) (Set m2) = Set (m1 `M.union` m2)
 
-unions :: forall a. (P.Ord a) => [Set a] -> Set a
+unions :: forall a. (Ord a) => [Set a] -> Set a
 unions = foldl union empty
 
-difference :: forall a. (P.Ord a) => Set a -> Set a -> Set a
-difference s1 s2 = foldl (P.flip delete) s1 (toList s2)
+difference :: forall a. (Ord a) => Set a -> Set a -> Set a
+difference s1 s2 = foldl (flip delete) s1 (toList s2)
 
-subset :: forall a. (P.Ord a) => Set a -> Set a -> Boolean
-subset s1 s2 = isEmpty P.$ s1 `difference` s2
+-- | True if and only if every element in the first set
+-- | is an element of the second set
+subset :: forall a. (Ord a) => Set a -> Set a -> Boolean
+subset s1 s2 = isEmpty $ s1 `difference` s2
 
-properSubset :: forall a. (P.Ord a) => Set a -> Set a -> Boolean
-properSubset s1 s2 = subset s1 s2 P.&& (P.not P.<<< isEmpty P.$ s2 `difference` s1)
+-- | True if and only if the first set is a subset of the second set
+-- | and the sets are not equal
+properSubset :: forall a. (Ord a) => Set a -> Set a -> Boolean
+properSubset s1 s2 = subset s1 s2 && (s1 /= s2)
 
-intersection :: forall a. (P.Ord a) => Set a -> Set a -> Set a
+-- | The set of elements which are in both the first and second set
+intersection :: forall a. (Ord a) => Set a -> Set a -> Set a
 intersection s1 s2 =
   s12 `difference` s2'1 `difference` s1'2 where
     s1'2 = s1 `difference` s2
