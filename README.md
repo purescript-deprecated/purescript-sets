@@ -105,3 +105,24 @@ unions :: forall a. (P.Ord a) => [Set a] -> Set a
 ``` purescript
 difference :: forall a. (P.Ord a) => Set a -> Set a -> Set a
 ```
+
+
+#### `subset`
+
+``` purescript
+subset :: forall a. (P.Ord a) => Set a -> Set a -> Boolean
+```
+
+
+#### `properSubset`
+
+``` purescript
+properSubset :: forall a. (P.Ord a) => Set a -> Set a -> Boolean
+```
+
+
+#### `intersection`
+
+``` purescript
+intersection :: forall a. (P.Ord a) => Set a -> Set a -> Set a
+```
