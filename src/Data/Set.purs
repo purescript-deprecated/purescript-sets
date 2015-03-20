@@ -1,8 +1,7 @@
---
--- Sets as balanced 2-3 trees
---
--- Based on http://www.cs.princeton.edu/~dpw/courses/cos326-12/ass/2-3-trees.pdf
---
+-- | This module defines a type of sets as balanced 2-3 trees, based on
+-- | <http://www.cs.princeton.edu/~dpw/courses/cos326-12/ass/2-3-trees.pdf>
+-- |
+-- | Qualified import is encouraged, so as to avoid name clashes with other modules.
 
 module Data.Set 
   ( Set(),
@@ -20,8 +19,6 @@ module Data.Set
     difference
   ) where
   
-import qualified Prelude as P
-
 import qualified Data.Map as M
 
 import Data.Array (map, nub, length)
@@ -29,47 +26,64 @@ import Data.Maybe
 import Data.Tuple
 import Data.Foldable (foldl) 
   
-data Set a = Set (M.Map a P.Unit) 
+-- | `Set a` represents a set of values of type `a`
+data Set a = Set (M.Map a Unit) 
 
-instance eqSet :: (P.Eq a) => P.Eq (Set a) where
-  (==) (Set m1) (Set m2) = m1 P.== m2
-  (/=) (Set m1) (Set m2) = m1 P./= m2
+instance eqSet :: (Eq a) => Eq (Set a) where
+  (==) (Set m1) (Set m2) = m1 == m2
+  (/=) (Set m1) (Set m2) = m1 /= m2
 
-instance showSet :: (P.Show a) => P.Show (Set a) where
-  show s = "fromList " P.++ P.show (toList s)
-  
+instance showSet :: (Show a) => Show (Set a) where
+  show s = "fromList " ++ show (toList s)
+
+-- | An empty set
 empty :: forall a. Set a
 empty = Set M.empty
 
+-- | Test if a set is empty
 isEmpty :: forall a. Set a -> Boolean
 isEmpty (Set m) = M.isEmpty m
 
+-- | Create a set with one element
 singleton :: forall a. a -> Set a
-singleton a = Set (M.singleton a P.unit)
-  
+singleton a = Set (M.singleton a unit)
+
+-- | Check whether the underlying tree satisfies the 2-3 invariant
+-- | 
+-- | This function is provided for internal use.
 checkValid :: forall a. Set a -> Boolean
 checkValid (Set m) = M.checkValid m
 
-member :: forall a. (P.Ord a) => a -> Set a -> Boolean
+-- | Test if a value is a member of a set
+member :: forall a. (Ord a) => a -> Set a -> Boolean
 member a (Set m) = a `M.member` m
 
-insert :: forall a. (P.Ord a) => a -> Set a -> Set a
-insert a (Set m) = Set (M.insert a P.unit m)
+-- | Insert a value into a set
+insert :: forall a. (Ord a) => a -> Set a -> Set a
+insert a (Set m) = Set (M.insert a unit m)
   
-delete :: forall a. (P.Ord a) => a -> Set a -> Set a
+-- | Delete a value from a set
+delete :: forall a. (Ord a) => a -> Set a -> Set a
 delete a (Set m) = Set (a `M.delete` m)
   
+-- | Convert a set to an array
 toList :: forall a. Set a -> [a]
 toList (Set m) = map fst (M.toList m)
 
-fromList :: forall a. (P.Ord a) => [a] -> Set a
+-- | Create a set from an array of elements
+fromList :: forall a. (Ord a) => [a] -> Set a
 fromList = foldl (\m a -> insert a m) empty
 
-union :: forall a. (P.Ord a) => Set a -> Set a -> Set a
+-- | Form the union of two sets
+-- | 
+-- | Running time: `O(n * log(m))`
+union :: forall a. (Ord a) => Set a -> Set a -> Set a
 union (Set m1) (Set m2) = Set (m1 `M.union` m2)
 
-unions :: forall a. (P.Ord a) => [Set a] -> Set a
+-- | Form the union of a collection of sets
+unions :: forall a. (Ord a) => [Set a] -> Set a
 unions = foldl union empty
 
-difference :: forall a. (P.Ord a) => Set a -> Set a -> Set a
-difference s1 s2 = foldl (P.flip delete) s1 (toList s2)
+-- | Form the set difference
+difference :: forall a. (Ord a) => Set a -> Set a -> Set a
+difference s1 s2 = foldl (flip delete) s1 (toList s2)

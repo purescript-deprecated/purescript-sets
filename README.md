@@ -1,123 +1,131 @@
 # Module Documentation
 
-Efficient sets implemented via Data.Map (i.e., purescript-maps).  The underlying data structure is a balanced 2-3 tree.  (See, e.g., http://www.cs.princeton.edu/~dpw/courses/cos326-12/ass/2-3-trees.pdf)
+## Module Data.Set
 
-## Usage
+
+This module defines a type of sets as balanced 2-3 trees, based on
+<http://www.cs.princeton.edu/~dpw/courses/cos326-12/ass/2-3-trees.pdf>
 
 Qualified import is encouraged, so as to avoid name clashes with other modules.
 
-``` purescript
-import qualified Data.Set as Set
-```
+#### `Set`
 
-As usual, installation is performed with Bower.
-
-```
-bower install purescript-sets -S
-```
-
-## Module Data.Set
-
-##### `Set`
-A set of values of type ```a```.
 ``` purescript
 data Set a
 ```
 
+`Set a` represents a set of values of type `a`
 
-##### `eqSet`
-Sets containing values of type ```a``` can be compared for equality provided that values of type ```a``` are members of the Prelude's ```Eq``` class.
+#### `eqSet`
+
 ``` purescript
-instance eqSet :: (P.Eq a) => P.Eq (Set a)
+instance eqSet :: (Eq a) => Eq (Set a)
 ```
 
 
-##### `showSet`
-Sets containing values of type ```a``` have a string representation provided that a value of type ```a``` is a member of the Prelude's ```Show``` class.
+#### `showSet`
+
 ``` purescript
-instance showSet :: (P.Show a) => P.Show (Set a)
+instance showSet :: (Show a) => Show (Set a)
 ```
 
 
-##### `empty`
-The value of the empty set.
+#### `empty`
+
 ``` purescript
 empty :: forall a. Set a
 ```
 
+An empty set
 
-##### `isEmpty`
-Takes a set as an argument and returns ```true``` if the set is the ```empty``` value; otherwise, returns ```false```.
+#### `isEmpty`
+
 ``` purescript
 isEmpty :: forall a. Set a -> Boolean
 ```
 
+Test if a set is empty
 
-##### `singleton`
-Takes a value and creates a set that contains only that value.
+#### `singleton`
+
 ``` purescript
 singleton :: forall a. a -> Set a
 ```
 
+Create a set with one element
 
-##### `checkValid`
-Tests whether the internal structure of a set is valid.  That is, ```checkValid``` takes a set and determines whether its "2-3 tree" representation is balanced, ordered, and satisfies the path-length invariant. 
+#### `checkValid`
+
 ``` purescript
 checkValid :: forall a. Set a -> Boolean
 ```
 
+Check whether the underlying tree satisfies the 2-3 invariant
 
-##### `member`
-Takes a value of type ```a``` and a set of ```a``` and returns ```true``` if the value is an element of the set.
+This function is provided for internal use.
+
+#### `member`
+
 ``` purescript
-member :: forall a. (P.Ord a) => a -> Set a -> Boolean
+member :: forall a. (Ord a) => a -> Set a -> Boolean
 ```
 
+Test if a value is a member of a set
 
-##### `insert`
-Takes a value of type ```a```, and an existing set of ```a```, and returns a new set comprising the elements of the existing set and the new value.
+#### `insert`
+
 ``` purescript
-insert :: forall a. (P.Ord a) => a -> Set a -> Set a
+insert :: forall a. (Ord a) => a -> Set a -> Set a
 ```
 
+Insert a value into a set
 
-##### `delete`
-Takes a value of type ```a```, and an existing set of ```a```, and returns a new set comprising the elements of the existing set excluding the provided value.  If the value is not an element of the existing set, the ```delete``` function simply returns a copy of the existing set.
+#### `delete`
+
 ``` purescript
-delete :: forall a. (P.Ord a) => a -> Set a -> Set a
+delete :: forall a. (Ord a) => a -> Set a -> Set a
 ```
 
+Delete a value from a set
 
-##### `toList`
-Converts a value of type ```Set``` to a value of type ```Array```.
+#### `toList`
+
 ``` purescript
 toList :: forall a. Set a -> [a]
 ```
 
+Convert a set to an array
 
-##### `fromList`
-Converts a value of type ```Array``` to a value of type ```Set```.
+#### `fromList`
+
 ``` purescript
-fromList :: forall a. (P.Ord a) => [a] -> Set a
+fromList :: forall a. (Ord a) => [a] -> Set a
 ```
 
+Create a set from an array of elements
 
-##### `union`
-Takes two existing sets and returns a new set comprising all distinct elements of the two sets.
+#### `union`
+
 ``` purescript
-union :: forall a. (P.Ord a) => Set a -> Set a -> Set a
+union :: forall a. (Ord a) => Set a -> Set a -> Set a
 ```
 
+Form the union of two sets
 
-##### `unions`
-Takes an array of sets (i.e., a collection of sets) and returns a new set comprising all distinct elements of the collected sets.
+Running time: `O(n * log(m))`
+
+#### `unions`
+
 ``` purescript
-unions :: forall a. (P.Ord a) => [Set a] -> Set a
+unions :: forall a. (Ord a) => [Set a] -> Set a
 ```
 
+Form the union of a collection of sets
 
-##### `difference`
-Takes two sets and returns a new set comprising only those elements of the first set (i.e., argumentOneSet) that are not elements of the second set (i.e., argumentTwoSet). 
+#### `difference`
+
 ``` purescript
-difference :: forall a. (P.Ord a) => Set a -> Set a -> Set a
+difference :: forall a. (Ord a) => Set a -> Set a -> Set a
 ```
+
+Form the set difference
