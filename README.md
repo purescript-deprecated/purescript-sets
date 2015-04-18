@@ -30,6 +30,13 @@ instance showSet :: (Show a) => Show (Set a)
 ```
 
 
+#### `ordSet`
+
+``` purescript
+instance ordSet :: (Ord a) => Ord (Set a)
+```
+
+
 #### `empty`
 
 ``` purescript
