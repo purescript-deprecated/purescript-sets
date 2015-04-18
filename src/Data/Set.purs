@@ -36,6 +36,9 @@ instance eqSet :: (Eq a) => Eq (Set a) where
 instance showSet :: (Show a) => Show (Set a) where
   show s = "fromList " ++ show (toList s)
 
+instance ordSet :: (Ord a) => Ord (Set a) where
+  compare s1 s2 = compare (toList s1) (toList s2)
+
 -- | An empty set
 empty :: forall a. Set a
 empty = Set M.empty
