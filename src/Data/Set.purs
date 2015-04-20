@@ -21,7 +21,7 @@ module Data.Set
   
 import qualified Data.Map as M
 
-import Data.Array (map, nub, length)
+import Data.Array (map)
 import Data.Maybe 
 import Data.Tuple
 import Data.Foldable (foldl) 
