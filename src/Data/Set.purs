@@ -23,6 +23,7 @@ module Data.Set
 import qualified Data.Map as M
 
 import Data.Array (map)
+import Data.Int (Int())
 import Data.Maybe 
 import Data.Tuple
 import Data.Foldable (foldl) 
@@ -80,7 +81,7 @@ fromList = foldl (\m a -> insert a m) empty
 
 -- | Find the size of a set
 size :: forall a. Set a -> Int
-size = M.size
+size (Set m) = M.size m
 
 -- | Form the union of two sets
 -- | 
