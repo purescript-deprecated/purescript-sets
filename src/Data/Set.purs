@@ -14,6 +14,7 @@ module Data.Set
     delete,
     toList,
     fromList,
+    size,
     union,
     unions,
     difference
@@ -76,6 +77,10 @@ toList (Set m) = map fst (M.toList m)
 -- | Create a set from an array of elements
 fromList :: forall a. (Ord a) => [a] -> Set a
 fromList = foldl (\m a -> insert a m) empty
+
+-- | Find the size of a set
+size :: forall a. Set a -> Int
+size = M.size
 
 -- | Form the union of two sets
 -- | 
