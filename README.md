@@ -95,18 +95,18 @@ delete :: forall a. (Ord a) => a -> Set a -> Set a
 
 Delete a value from a set
 
-#### `toList`
+#### `toArray`
 
 ``` purescript
-toList :: forall a. Set a -> [a]
+toArray :: forall a. Set a -> [a]
 ```
 
 Convert a set to an array
 
-#### `fromList`
+#### `fromArray`
 
 ``` purescript
-fromList :: forall a. (Ord a) => [a] -> Set a
+fromArray :: forall a. (Ord a) => [a] -> Set a
 ```
 
 Create a set from an array of elements

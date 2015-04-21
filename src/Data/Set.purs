@@ -12,8 +12,8 @@ module Data.Set
     insert,
     member,
     delete,
-    toList,
-    fromList,
+    toArray,
+    fromArray,
     union,
     unions,
     difference
@@ -34,10 +34,10 @@ instance eqSet :: (Eq a) => Eq (Set a) where
   (/=) (Set m1) (Set m2) = m1 /= m2
 
 instance showSet :: (Show a) => Show (Set a) where
-  show s = "fromList " ++ show (toList s)
+  show s = "fromArray " ++ show (toArray s)
 
 instance ordSet :: (Ord a) => Ord (Set a) where
-  compare s1 s2 = compare (toList s1) (toList s2)
+  compare s1 s2 = compare (toArray s1) (toArray s2)
 
 -- | An empty set
 empty :: forall a. Set a
@@ -70,12 +70,12 @@ delete :: forall a. (Ord a) => a -> Set a -> Set a
 delete a (Set m) = Set (a `M.delete` m)
   
 -- | Convert a set to an array
-toList :: forall a. Set a -> [a]
-toList (Set m) = map fst (M.toList m)
+toArray :: forall a. Set a -> [a]
+toArray (Set m) = map fst (M.toList m)
 
 -- | Create a set from an array of elements
-fromList :: forall a. (Ord a) => [a] -> Set a
-fromList = foldl (\m a -> insert a m) empty
+fromArray :: forall a. (Ord a) => [a] -> Set a
+fromArray = foldl (\m a -> insert a m) empty
 
 -- | Form the union of two sets
 -- | 
@@ -89,4 +89,4 @@ unions = foldl union empty
 
 -- | Form the set difference
 difference :: forall a. (Ord a) => Set a -> Set a -> Set a
-difference s1 s2 = foldl (flip delete) s1 (toList s2)
+difference s1 s2 = foldl (flip delete) s1 (toArray s2)
