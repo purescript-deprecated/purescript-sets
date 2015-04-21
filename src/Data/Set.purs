@@ -14,6 +14,7 @@ module Data.Set
     delete,
     toList,
     fromList,
+    size,
     union,
     unions,
     difference
@@ -22,6 +23,7 @@ module Data.Set
 import qualified Data.Map as M
 
 import Data.Array (map)
+import Data.Int (Int())
 import Data.Maybe 
 import Data.Tuple
 import Data.Foldable (foldl) 
@@ -76,6 +78,10 @@ toList (Set m) = map fst (M.toList m)
 -- | Create a set from an array of elements
 fromList :: forall a. (Ord a) => [a] -> Set a
 fromList = foldl (\m a -> insert a m) empty
+
+-- | Find the size of a set
+size :: forall a. Set a -> Int
+size (Set m) = M.size m
 
 -- | Form the union of two sets
 -- | 
