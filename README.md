@@ -111,6 +111,14 @@ fromList :: forall a. (Ord a) => [a] -> Set a
 
 Create a set from an array of elements
 
+#### `size`
+
+``` purescript
+size :: forall a. Set a -> Int
+```
+
+Find the size of a set
+
 #### `union`
 
 ``` purescript
