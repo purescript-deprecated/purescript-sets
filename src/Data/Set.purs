@@ -20,20 +20,22 @@ module Data.Set
     difference
   ) where
   
+import Prelude
+  
 import qualified Data.Map as M
 
-import Data.Array (map)
-import Data.Int (Int())
+import Data.Int ()
 import Data.Maybe 
 import Data.Tuple
 import Data.Foldable (foldl) 
+
+import Data.List (List(..))
   
 -- | `Set a` represents a set of values of type `a`
 data Set a = Set (M.Map a Unit) 
 
 instance eqSet :: (Eq a) => Eq (Set a) where
-  (==) (Set m1) (Set m2) = m1 == m2
-  (/=) (Set m1) (Set m2) = m1 /= m2
+  eq (Set m1) (Set m2) = m1 == m2
 
 instance showSet :: (Show a) => Show (Set a) where
   show s = "fromList " ++ show (toList s)
@@ -72,11 +74,11 @@ delete :: forall a. (Ord a) => a -> Set a -> Set a
 delete a (Set m) = Set (a `M.delete` m)
   
 -- | Convert a set to an array
-toList :: forall a. Set a -> [a]
+toList :: forall a. Set a -> List a
 toList (Set m) = map fst (M.toList m)
 
 -- | Create a set from an array of elements
-fromList :: forall a. (Ord a) => [a] -> Set a
+fromList :: forall a. (Ord a) => List a -> Set a
 fromList = foldl (\m a -> insert a m) empty
 
 -- | Find the size of a set
@@ -90,7 +92,7 @@ union :: forall a. (Ord a) => Set a -> Set a -> Set a
 union (Set m1) (Set m2) = Set (m1 `M.union` m2)
 
 -- | Form the union of a collection of sets
-unions :: forall a. (Ord a) => [Set a] -> Set a
+unions :: forall a. (Ord a) => List (Set a) -> Set a
 unions = foldl union empty
 
 -- | Form the set difference
