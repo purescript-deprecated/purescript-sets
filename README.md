@@ -1,4 +1,4 @@
-# purescript-maps
+# purescript-sets
 
 Purely-functional set data structure
 
