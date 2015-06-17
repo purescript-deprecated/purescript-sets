@@ -26,6 +26,7 @@ import qualified Data.Map as M
 
 import Data.Int ()
 import Data.Maybe 
+import Data.Monoid
 import Data.Tuple
 import Data.Foldable (foldl) 
 
@@ -42,6 +43,12 @@ instance showSet :: (Show a) => Show (Set a) where
 
 instance ordSet :: (Ord a) => Ord (Set a) where
   compare s1 s2 = compare (toList s1) (toList s2)
+
+instance monoidSet :: (Ord a) => Monoid (Set a) where
+  mempty = empty
+
+instance monoidSemigroup :: (Ord a) => Semigroup (Set a) where
+  append = union
 
 -- | An empty set
 empty :: forall a. Set a
