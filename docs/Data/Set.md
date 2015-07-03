@@ -18,6 +18,8 @@ data Set a
 instance eqSet :: (Eq a) => Eq (Set a)
 instance showSet :: (Show a) => Show (Set a)
 instance ordSet :: (Ord a) => Ord (Set a)
+instance monoidSet :: (Ord a) => Monoid (Set a)
+instance monoidSemigroup :: (Ord a) => Semigroup (Set a)
 ```
 
 #### `empty`
