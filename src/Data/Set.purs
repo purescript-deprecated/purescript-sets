@@ -80,11 +80,11 @@ insert a (Set m) = Set (M.insert a unit m)
 delete :: forall a. (Ord a) => a -> Set a -> Set a
 delete a (Set m) = Set (a `M.delete` m)
   
--- | Convert a set to an array
+-- | Convert a set to a list
 toList :: forall a. Set a -> List a
 toList (Set m) = map fst (M.toList m)
 
--- | Create a set from an array of elements
+-- | Create a set from a list of elements
 fromList :: forall a. (Ord a) => List a -> Set a
 fromList = foldl (\m a -> insert a m) empty
 
