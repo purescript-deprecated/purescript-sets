@@ -28,7 +28,7 @@ import Data.Int ()
 import Data.Maybe 
 import Data.Monoid
 import Data.Tuple
-import Data.Foldable (foldl) 
+import Data.Foldable (Foldable, foldMap, foldl, foldr)
 
 import Data.List (List(..))
   
@@ -49,6 +49,11 @@ instance monoidSet :: (Ord a) => Monoid (Set a) where
 
 instance monoidSemigroup :: (Ord a) => Semigroup (Set a) where
   append = union
+
+instance foldableSet :: Foldable Set where
+  foldMap f = foldMap f <<< toList
+  foldl f x = foldl f x <<< toList
+  foldr f x = foldr f x <<< toList
 
 -- | An empty set
 empty :: forall a. Set a
