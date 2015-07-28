@@ -24,7 +24,6 @@ import Prelude
   
 import qualified Data.Map as M
 
-import Data.Int ()
 import Data.Maybe 
 import Data.Monoid
 import Data.Tuple
