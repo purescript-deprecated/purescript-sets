@@ -19,7 +19,8 @@ instance eqSet :: (Eq a) => Eq (Set a)
 instance showSet :: (Show a) => Show (Set a)
 instance ordSet :: (Ord a) => Ord (Set a)
 instance monoidSet :: (Ord a) => Monoid (Set a)
-instance monoidSemigroup :: (Ord a) => Semigroup (Set a)
+instance semigroupSet :: (Ord a) => Semigroup (Set a)
+instance foldableSet :: Foldable Set
 ```
 
 #### `empty`
@@ -86,7 +87,7 @@ Delete a value from a set
 toList :: forall a. Set a -> List a
 ```
 
-Convert a set to an array
+Convert a set to a list
 
 #### `fromList`
 
@@ -94,7 +95,7 @@ Convert a set to an array
 fromList :: forall a. (Ord a) => List a -> Set a
 ```
 
-Create a set from an array of elements
+Create a set from a list of elements
 
 #### `size`
 
