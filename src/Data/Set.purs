@@ -46,7 +46,7 @@ instance ordSet :: (Ord a) => Ord (Set a) where
 instance monoidSet :: (Ord a) => Monoid (Set a) where
   mempty = empty
 
-instance monoidSemigroup :: (Ord a) => Semigroup (Set a) where
+instance semigroupSet :: (Ord a) => Semigroup (Set a) where
   append = union
 
 instance foldableSet :: Foldable Set where
