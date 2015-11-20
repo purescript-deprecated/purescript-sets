@@ -23,7 +23,7 @@ module Data.Set
 import Prelude
 
 import Data.Foldable (Foldable, foldMap, foldl, foldr)
-import Data.List (List(..))
+import Data.List (List())
 import Data.Monoid (Monoid)
 import Data.Tuple (fst)
 import qualified Data.Map as M
