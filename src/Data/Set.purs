@@ -35,13 +35,14 @@ import qualified Data.Map as M
 import Control.Monad.Eff (runPure, Eff())
 import Control.Monad.ST (ST())
 import Control.Monad.Rec.Class (tailRecM2)
-import Data.Array (map, nub, length)
+import Data.Array (nub, length)
 import Data.Array.ST
+import Data.Array.Unsafe (unsafeIndex)
+import qualified Data.List as List
 import Data.Either
 import Data.Maybe
 import Data.Tuple
 import Data.Foldable (foldl)
-import Prelude.Unsafe (unsafeIndex)
 
 -- | `Set a` represents a set of values of type `a`
 data Set a = Set (M.Map a Unit)
@@ -138,9 +139,9 @@ properSubset s1 s2 = subset s1 s2 && (s1 /= s2)
 
 -- | The set of elements which are in both the first and second set
 intersection :: forall a. (Ord a) => Set a -> Set a -> Set a
-intersection s1 s2 = fromList $ runPure (runSTArray (emptySTArray >>= intersect)) where
-  ls = toList s1
-  rs = toList s2
+intersection s1 s2 = fromArray $ runPure (runSTArray (emptySTArray >>= intersect)) where
+  ls = toArray s1
+  rs = toArray s2
   ll = length ls
   rl = length rs
   intersect :: forall h r. STArray h a -> Eff (st :: ST h | r) (STArray h a)
@@ -154,3 +155,9 @@ intersection s1 s2 = fromList $ runPure (runSTArray (emptySTArray >>= intersect)
         LT -> pure $ Left {a: l + 1, b: r}
         GT -> pure $ Left {a: l, b: r + 1}
       else pure $ Right acc
+
+toArray :: forall a. (Ord a) => Set a -> Array a
+toArray = List.fromList <<< toList
+
+fromArray :: forall a. (Ord a) => Array a -> Set a
+fromArray = fromList <<< List.toList

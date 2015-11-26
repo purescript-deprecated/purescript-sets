@@ -139,4 +139,30 @@ difference :: forall a. (Ord a) => Set a -> Set a -> Set a
 
 Form the set difference
 
+#### `subset`
+
+``` purescript
+subset :: forall a. (Ord a) => Set a -> Set a -> Boolean
+```
+
+True if and only if every element in the first set
+is an element of the second set
+
+#### `properSubset`
+
+``` purescript
+properSubset :: forall a. (Ord a) => Set a -> Set a -> Boolean
+```
+
+True if and only if the first set is a subset of the second set
+and the sets are not equal
+
+#### `intersection`
+
+``` purescript
+intersection :: forall a. (Ord a) => Set a -> Set a -> Set a
+```
+
+The set of elements which are in both the first and second set
+
 
