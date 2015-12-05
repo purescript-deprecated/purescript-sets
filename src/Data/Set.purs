@@ -29,7 +29,6 @@ import Prelude
 import Data.Foldable (Foldable, foldMap, foldl, foldr)
 import Data.List (List())
 import Data.Monoid (Monoid)
-import Data.Tuple (fst)
 import qualified Data.Map as M
 
 import Control.Monad.Eff (runPure, Eff())
@@ -102,7 +101,7 @@ fromFoldable = foldl (\m a -> insert a m) empty
 
 -- | Convert a set to a list
 toList :: forall a. Set a -> List a
-toList (Set m) = map fst (M.toList m)
+toList (Set m) = M.keys m
 
 -- | Create a set from a list of elements
 fromList :: forall a. (Ord a) => List a -> Set a
