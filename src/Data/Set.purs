@@ -12,6 +12,7 @@ module Data.Set
   , insert
   , member
   , delete
+  , fromFoldable
   , toList
   , fromList
   , size
@@ -81,13 +82,17 @@ insert a (Set m) = Set (M.insert a unit m)
 delete :: forall a. (Ord a) => a -> Set a -> Set a
 delete a (Set m) = Set (a `M.delete` m)
 
+-- | Create a set from a foldable collection of elements
+fromFoldable :: forall f a. (Foldable f, Ord a) => f a -> Set a
+fromFoldable = foldl (\m a -> insert a m) empty
+
 -- | Convert a set to a list
 toList :: forall a. Set a -> List a
 toList (Set m) = map fst (M.toList m)
 
 -- | Create a set from a list of elements
 fromList :: forall a. (Ord a) => List a -> Set a
-fromList = foldl (\m a -> insert a m) empty
+fromList = fromFoldable
 
 -- | Find the size of a set
 size :: forall a. Set a -> Int
