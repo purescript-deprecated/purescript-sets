@@ -15,12 +15,12 @@ data Set a
 
 ##### Instances
 ``` purescript
-instance eqSet :: (Eq a) => Eq (Set a)
-instance showSet :: (Show a) => Show (Set a)
-instance ordSet :: (Ord a) => Ord (Set a)
-instance monoidSet :: (Ord a) => Monoid (Set a)
-instance semigroupSet :: (Ord a) => Semigroup (Set a)
-instance foldableSet :: Foldable Set
+(Eq a) => Eq (Set a)
+(Show a) => Show (Set a)
+(Ord a) => Ord (Set a)
+(Ord a) => Monoid (Set a)
+(Ord a) => Semigroup (Set a)
+Foldable Set
 ```
 
 #### `empty`
@@ -80,6 +80,14 @@ delete :: forall a. (Ord a) => a -> Set a -> Set a
 ```
 
 Delete a value from a set
+
+#### `fromFoldable`
+
+``` purescript
+fromFoldable :: forall f a. (Foldable f, Ord a) => f a -> Set a
+```
+
+Create a set from a foldable collection of elements
 
 #### `toList`
 
