@@ -139,7 +139,7 @@ properSubset s1 s2 = subset s1 s2 && (s1 /= s2)
 
 -- | The set of elements which are in both the first and second set
 intersection :: forall a. (Ord a) => Set a -> Set a -> Set a
-intersection s1 s2 = fromArray $ runPure (runSTArray (emptySTArray >>= intersect)) where
+intersection s1 s2 = fromFoldable $ runPure (runSTArray (emptySTArray >>= intersect)) where
   ls = toArray s1
   rs = toArray s2
   ll = length ls
@@ -158,6 +158,3 @@ intersection s1 s2 = fromArray $ runPure (runSTArray (emptySTArray >>= intersect
 
 toArray :: forall a. (Ord a) => Set a -> Array a
 toArray = List.fromList <<< toList
-
-fromArray :: forall a. (Ord a) => Array a -> Set a
-fromArray = fromList <<< List.toList
