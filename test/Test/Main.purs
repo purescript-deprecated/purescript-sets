@@ -18,3 +18,9 @@ main = do
      assert $ S.member 0 set
      assert $ S.member 1 set
      assert $ S.member 2 set
+
+  log "intersection"
+  do let s1 = S.fromFoldable [1,2,3,4,5]
+         s2 = S.fromFoldable [2,4,6,8,10]
+         s3 = S.fromFoldable [2,4]
+     assert $ S.intersection s1 s2 == s3
