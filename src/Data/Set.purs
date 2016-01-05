@@ -35,12 +35,11 @@ import qualified Data.Map as M
 import Control.Monad.Eff (runPure, Eff())
 import Control.Monad.ST (ST())
 import Control.Monad.Rec.Class (tailRecM2)
-import Data.Array (nub, length)
+import Data.Array (length)
 import Data.Array.ST
 import Data.Array.Unsafe (unsafeIndex)
 import qualified Data.List as List
 import Data.Either
-import Data.Maybe
 import Data.Tuple
 import Data.Foldable (foldl)
 
