@@ -39,7 +39,6 @@ import Data.Array.ST
 import Data.Array.Unsafe (unsafeIndex)
 import qualified Data.List as List
 import Data.Either
-import Data.Tuple
 import Data.Foldable (foldl)
 
 -- | `Set a` represents a set of values of type `a`
