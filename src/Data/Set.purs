@@ -24,21 +24,21 @@ module Data.Set
   , intersection
   ) where
 
-import Prelude
+import Prelude (class Ord, class Semigroup, class Show, class Eq, Unit, Ordering(GT, LT, EQ), (<<<), (>>=), ($), pure, (+), bind, compare, (<), (&&), (/=), flip, unit, show, (++), (==))
 
-import Data.Foldable (Foldable, foldMap, foldl, foldr)
+import Data.Foldable (class Foldable, foldMap, foldl, foldr)
 import Data.List (List())
-import Data.Monoid (Monoid)
-import qualified Data.Map as M
+import Data.Monoid (class Monoid)
+import Data.Map as M
 
 import Control.Monad.Eff (runPure, Eff())
 import Control.Monad.ST (ST())
 import Control.Monad.Rec.Class (tailRecM2)
 import Data.Array (length)
-import Data.Array.ST
+import Data.Array.ST (STArray, emptySTArray, runSTArray, pushSTArray)
 import Data.Array.Unsafe (unsafeIndex)
-import qualified Data.List as List
-import Data.Either
+import Data.List as List
+import Data.Either (Either(Right, Left))
 import Data.Foldable (foldl)
 
 -- | `Set a` represents a set of values of type `a`
