@@ -4,9 +4,6 @@
   "authors": [
     "Phil Freeman <paf31@cantab.net>"
   ],
-  "keywords": [
-    "purescript"
-  ],
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -22,11 +19,11 @@
     "package.json"
   ],
   "dependencies": {
-    "purescript-maps": "^0.5.0",
-    "purescript-tailrec": "^0.3.1"
+    "purescript-maps": "^1.0.0-rc.1",
+    "purescript-tailrec": "^1.0.0-rc.1"
   },
   "devDependencies": {
-    "purescript-assert": "~0.1.1",
-    "purescript-console": "~0.1.1"
+    "purescript-assert": "^1.0.0-rc.1",
+    "purescript-console": "^1.0.0-rc.1"
   }
 }

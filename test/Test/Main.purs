@@ -2,12 +2,14 @@ module Test.Main where
 
 import Prelude
 
-import Control.Monad.Eff.Console (log)
-import Test.Assert (assert)
+import Control.Monad.Eff (Eff)
+import Control.Monad.Eff.Console (CONSOLE, log)
+import Test.Assert (ASSERT, assert)
 
-import Data.Set (Set())
+import Data.Set (Set)
 import Data.Set as S
 
+main :: Eff (console :: CONSOLE, assert :: ASSERT) Unit
 main = do
   log "fromFoldable - empty"
   assert $ S.fromFoldable [] == S.empty :: Set Unit
