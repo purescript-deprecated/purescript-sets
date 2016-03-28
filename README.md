@@ -12,6 +12,6 @@ Purely-functional set data structure
 bower install purescript-sets
 ```
 
-## Module documentation
+## Documentation
 
-- [Data.Set](docs/Data/Set.md)
+Module documentation is [published on Pursuit](http://pursuit.purescript.org/packages/purescript-sets).
