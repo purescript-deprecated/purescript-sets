@@ -19,11 +19,11 @@
     "package.json"
   ],
   "dependencies": {
-    "purescript-maps": "^1.0.0-rc.1",
-    "purescript-tailrec": "^1.0.0-rc.1"
+    "purescript-maps": "^1.0.0",
+    "purescript-tailrec": "^1.0.0"
   },
   "devDependencies": {
-    "purescript-assert": "^1.0.0-rc.1",
-    "purescript-console": "^1.0.0-rc.1"
+    "purescript-assert": "^1.0.0",
+    "purescript-console": "^1.0.0"
   }
 }
