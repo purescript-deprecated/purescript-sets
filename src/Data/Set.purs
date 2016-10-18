@@ -27,13 +27,11 @@ module Data.Set
 import Prelude
 
 import Control.Monad.Eff (runPure, Eff)
-import Control.Monad.Rec.Class (tailRecM2)
+import Control.Monad.Rec.Class (Step(..), tailRecM2)
 import Control.Monad.ST (ST)
 
 import Data.Array as Array
-import Data.Array.Partial (unsafeIndex)
 import Data.Array.ST (STArray, emptySTArray, runSTArray, pushSTArray)
-import Data.Either (Either(..))
 import Data.Foldable (class Foldable, foldMap, foldl, foldr)
 import Data.List (List)
 import Data.List as List
@@ -157,10 +155,10 @@ intersection s1 s2 = fromFoldable $ runPure (runSTArray (emptySTArray >>= inters
     where
     go = unsafePartial \l r ->
       if l < ll && r < rl
-      then case compare (ls `unsafeIndex` l) (rs `unsafeIndex` r) of
+      then case compare (ls `Array.unsafeIndex` l) (rs `Array.unsafeIndex` r) of
         EQ -> do
-          pushSTArray acc (ls `unsafeIndex` l)
-          pure $ Left {a: l + 1, b: r + 1}
-        LT -> pure $ Left {a: l + 1, b: r}
-        GT -> pure $ Left {a: l, b: r + 1}
-      else pure $ Right acc
+          pushSTArray acc (ls `Array.unsafeIndex` l)
+          pure $ Loop {a: l + 1, b: r + 1}
+        LT -> pure $ Loop {a: l + 1, b: r}
+        GT -> pure $ Loop {a: l, b: r + 1}
+      else pure $ Done acc
