@@ -157,7 +157,7 @@ intersection s1 s2 = fromFoldable $ runPure (runSTArray (emptySTArray >>= inters
       if l < ll && r < rl
       then case compare (ls `Array.unsafeIndex` l) (rs `Array.unsafeIndex` r) of
         EQ -> do
-          pushSTArray acc (ls `Array.unsafeIndex` l)
+          _ <- pushSTArray acc (ls `Array.unsafeIndex` l)
           pure $ Loop {a: l + 1, b: r + 1}
         LT -> pure $ Loop {a: l + 1, b: r}
         GT -> pure $ Loop {a: l, b: r + 1}
