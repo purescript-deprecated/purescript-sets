@@ -8,6 +8,7 @@ import Test.Assert (ASSERT, assert)
 
 import Data.Set (Set)
 import Data.Set as S
+import Data.Tuple (Tuple(..))
 
 main :: Eff (console :: CONSOLE, assert :: ASSERT) Unit
 main = do
@@ -26,3 +27,9 @@ main = do
          s2 = S.fromFoldable [2,4,6,8,10]
          s3 = S.fromFoldable [2,4]
      assert $ S.intersection s1 s2 == s3
+
+  log "cartesianProduct"
+  do let s1 = S.fromFoldable [1,2]
+         s2 = S.fromFoldable ["A","B"]
+         s3 = S.fromFoldable [(Tuple 1 "A"), (Tuple 2 "A"), (Tuple 1 "B"), (Tuple 2 "B")]
+     assert $ S.cartesianProduct s1 s2 == s3

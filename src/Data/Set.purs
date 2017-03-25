@@ -22,6 +22,7 @@ module Data.Set
   , subset
   , properSubset
   , intersection
+  , cartesianProduct
   ) where
 
 import Prelude
@@ -37,6 +38,7 @@ import Data.List (List)
 import Data.List as List
 import Data.Map as M
 import Data.Monoid (class Monoid)
+import Data.Tuple (Tuple(..))
 import Data.Unfoldable (class Unfoldable)
 
 import Partial.Unsafe (unsafePartial)
@@ -162,3 +164,11 @@ intersection s1 s2 = fromFoldable $ runPure (runSTArray (emptySTArray >>= inters
         LT -> pure $ Loop {a: l + 1, b: r}
         GT -> pure $ Loop {a: l, b: r + 1}
       else pure $ Done acc
+
+-- | The Cartesian product of two sets
+cartesianProduct :: forall a b. (Ord a, Ord b) => Set a -> Set b -> Set (Tuple a b)
+cartesianProduct s1 s2 =
+  fromFoldable $ do
+    x <- List.fromFoldable s1
+    y <- List.fromFoldable s2
+    pure $ Tuple x y
