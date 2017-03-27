@@ -31,6 +31,7 @@ import Control.Monad.Rec.Class (Step(..), tailRecM2)
 import Control.Monad.ST (ST)
 
 import Data.Array as Array
+import Data.Eq (class Eq1)
 import Data.Array.ST (STArray, emptySTArray, runSTArray, pushSTArray)
 import Data.Foldable (class Foldable, foldMap, foldl, foldr)
 import Data.List (List)
@@ -45,7 +46,7 @@ import Partial.Unsafe (unsafePartial)
 data Set a = Set (M.Map a Unit)
 
 -- | Create a set from a foldable structure.
-fromFoldable :: forall f a. (Foldable f, Ord a) => f a -> Set a
+fromFoldable :: forall f a. Foldable f => Ord a => f a -> Set a
 fromFoldable = foldl (\m a -> insert a m) empty
 
 -- | Convert a set to an unfoldable structure.
@@ -57,6 +58,9 @@ toList (Set m) = M.keys m
 
 instance eqSet :: Eq a => Eq (Set a) where
   eq (Set m1) (Set m2) = m1 == m2
+
+instance eq1Set :: Eq1 Set where
+  eq1 = eq
 
 instance showSet :: Show a => Show (Set a) where
   show s = "(fromFoldable " <> show (toList s) <> ")"
@@ -124,7 +128,7 @@ union :: forall a. Ord a => Set a -> Set a -> Set a
 union (Set m1) (Set m2) = Set (m1 `M.union` m2)
 
 -- | Form the union of a collection of sets
-unions :: forall f a. (Foldable f, Ord a) => f (Set a) -> Set a
+unions :: forall f a. Foldable f => Ord a => f (Set a) -> Set a
 unions = foldl union empty
 
 -- | Form the set difference
