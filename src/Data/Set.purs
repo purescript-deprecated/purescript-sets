@@ -16,6 +16,8 @@ module Data.Set
   , member
   , delete
   , size
+  , findMin
+  , findMax
   , union
   , unions
   , difference
@@ -24,7 +26,8 @@ module Data.Set
   , intersection
   ) where
 
-import Prelude
+import Prelude hiding (map)
+import Prelude as Prelude
 
 import Control.Monad.Eff (runPure, Eff)
 import Control.Monad.Rec.Class (Step(..), tailRecM2)
@@ -37,6 +40,7 @@ import Data.Foldable (class Foldable, foldMap, foldl, foldr)
 import Data.List (List)
 import Data.List as List
 import Data.Map as M
+import Data.Maybe (Maybe)
 import Data.Monoid (class Monoid)
 import Data.Unfoldable (class Unfoldable)
 
@@ -120,6 +124,12 @@ delete a (Set m) = Set (a `M.delete` m)
 -- | Find the size of a set
 size :: forall a. Set a -> Int
 size (Set m) = M.size m
+
+findMin :: forall a. Set a -> Maybe a
+findMin (Set m) = Prelude.map _.key (M.findMin m)
+
+findMax :: forall a. Set a -> Maybe a
+findMax (Set m) = Prelude.map _.key (M.findMax m)
 
 -- | Form the union of two sets
 -- |
