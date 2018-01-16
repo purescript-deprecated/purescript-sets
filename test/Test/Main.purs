@@ -26,3 +26,11 @@ main = do
          s2 = S.fromFoldable [2,4,6,8,10]
          s3 = S.fromFoldable [2,4]
      assert $ S.intersection s1 s2 == s3
+
+  log "choose"
+  do let set = S.fromFoldable [0, 1, 2]
+     assert $ S.choose set 2 == S.fromFoldable `S.map` S.fromFoldable [
+                                  [0, 1]
+                                , [1, 2]
+                                , [0, 2]
+                                ]
