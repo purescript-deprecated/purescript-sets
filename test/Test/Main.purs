@@ -4,10 +4,11 @@ import Prelude
 
 import Control.Monad.Eff (Eff)
 import Control.Monad.Eff.Console (CONSOLE, log)
-import Test.Assert (ASSERT, assert)
-
+import Data.Map as M
 import Data.Set (Set)
 import Data.Set as S
+import Data.Tuple (Tuple(..))
+import Test.Assert (ASSERT, assert)
 
 main :: Eff (console :: CONSOLE, assert :: ASSERT) Unit
 main = do
@@ -26,3 +27,8 @@ main = do
          s2 = S.fromFoldable [2,4,6,8,10]
          s3 = S.fromFoldable [2,4]
      assert $ S.intersection s1 s2 == s3
+
+  log "keysSet"
+  do let s1 = M.fromFoldable [Tuple 1 1, Tuple 2 2, Tuple 3 3]
+         s2 = S.fromFoldable [1, 2, 3]
+     assert $ S.keysSet s1 == s2

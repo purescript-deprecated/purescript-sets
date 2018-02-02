@@ -24,6 +24,7 @@ module Data.Set
   , subset
   , properSubset
   , intersection
+  , keysSet
   ) where
 
 import Prelude hiding (map)
@@ -176,3 +177,9 @@ intersection s1 s2 = fromFoldable $ runPure (runSTArray (emptySTArray >>= inters
         LT -> pure $ Loop {a: l + 1, b: r}
         GT -> pure $ Loop {a: l, b: r + 1}
       else pure $ Done acc
+
+-- | Extracts the keys of a `Map` as a `Set`.
+-- |
+-- | Running time: `O(n)`
+keysSet :: forall k v. Ord k => M.Map k v -> Set k
+keysSet = Set <<< void
