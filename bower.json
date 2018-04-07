@@ -19,6 +19,7 @@
     "package.json"
   ],
   "dependencies": {
+    "purescript-generics": "^4.0.0",
     "purescript-maps": "^3.0.0",
     "purescript-tailrec": "^3.0.0"
   },

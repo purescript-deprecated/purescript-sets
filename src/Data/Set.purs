@@ -37,6 +37,7 @@ import Data.Array as Array
 import Data.Eq (class Eq1)
 import Data.Array.ST (STArray, emptySTArray, runSTArray, pushSTArray)
 import Data.Foldable (class Foldable, foldMap, foldl, foldr)
+import Data.Generic (class Generic)
 import Data.List (List)
 import Data.List as List
 import Data.Map as M
@@ -59,6 +60,8 @@ toUnfoldable = List.toUnfoldable <<< toList
 
 toList :: forall a. Set a -> List a
 toList (Set m) = M.keys m
+
+derive instance genericSet :: (Generic a) => Generic (Set a)
 
 instance eqSet :: Eq a => Eq (Set a) where
   eq (Set m1) (Set m2) = m1 == m2
