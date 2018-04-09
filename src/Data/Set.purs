@@ -42,6 +42,7 @@ import Data.List as List
 import Data.Map as M
 import Data.Maybe (Maybe)
 import Data.Monoid (class Monoid)
+import Data.Ord (class Ord1)
 import Data.Unfoldable (class Unfoldable)
 
 import Partial.Unsafe (unsafePartial)
@@ -71,6 +72,9 @@ instance showSet :: Show a => Show (Set a) where
 
 instance ordSet :: Ord a => Ord (Set a) where
   compare s1 s2 = compare (toList s1) (toList s2)
+
+instance ord1Set :: Ord1 Set where
+  compare1 = compare
 
 instance monoidSet :: Ord a => Monoid (Set a) where
   mempty = empty
