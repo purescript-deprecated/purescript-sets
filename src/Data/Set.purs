@@ -24,6 +24,7 @@ module Data.Set
   , subset
   , properSubset
   , intersection
+  , choose
   ) where
 
 import Prelude hiding (map)
@@ -180,3 +181,11 @@ intersection s1 s2 = fromFoldable $ runPure (runSTArray (emptySTArray >>= inters
         LT -> pure $ Loop {a: l + 1, b: r}
         GT -> pure $ Loop {a: l, b: r + 1}
       else pure $ Done acc
+
+-- | The set of all subsets of specified size
+choose :: forall a. Ord a => Set a -> Int -> Set (Set a)
+choose = go (singleton empty)
+  where
+  go acc _ 0 = acc
+  go acc s n =
+    unions $ map (\e -> go (map (insert e) acc) (delete e s) (n - 1)) s
