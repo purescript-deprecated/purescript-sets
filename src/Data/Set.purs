@@ -24,6 +24,7 @@ module Data.Set
   , subset
   , properSubset
   , intersection
+  , powerSet
   ) where
 
 import Prelude hiding (map)
@@ -180,3 +181,9 @@ intersection s1 s2 = fromFoldable $ runPure (runSTArray (emptySTArray >>= inters
         LT -> pure $ Loop {a: l + 1, b: r}
         GT -> pure $ Loop {a: l, b: r + 1}
       else pure $ Done acc
+
+-- | The set of all subsets of the given set
+powerSet :: forall a. Ord a => Set a -> Set (Set a)
+powerSet =
+  foldl (\subPowerset a -> subPowerset `union` map (insert a) subPowerset)
+        (singleton empty)
