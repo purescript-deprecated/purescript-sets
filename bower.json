@@ -4,10 +4,11 @@
   "authors": [
     "Phil Freeman <paf31@cantab.net>"
   ],
+  "keywords": ["pursuit-deprecated"],
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/purescript/purescript-sets.git"
+    "url": "https://github.com/purescript/purescript-sets.git"
   },
   "ignore": [
     "**/.*",
